@@ -15,6 +15,22 @@
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
+// function Parent(attributes) {
+//   this.age = attributes.age;
+//   this.location = attributes.location;
+//   this.name = attributes.name;
+//   this.phrase = attributes.phrase;
+// }
+
+const GameObject = function(attributes) {
+  this.createdAt = attributes.createdAt;
+  this.dimensions = attributes.dimensions;
+}
+
+GameObject.proptotype.destroy = function() {
+  return "Object was removed from the game.";
+}
+
 /*
   === CharacterStats ===
   * healthPoints
