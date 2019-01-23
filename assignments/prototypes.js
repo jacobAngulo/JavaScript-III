@@ -27,7 +27,7 @@ const GameObject = function(attributes) {
   this.dimensions = attributes.dimensions;
 }
 
-GameObject.proptotype.destroy = function() {
+GameObject.prototype.destroy = function() {
   return "Object was removed from the game.";
 }
 
@@ -39,6 +39,18 @@ GameObject.proptotype.destroy = function() {
   * should inherit destroy() from GameObject's prototype
 */
 
+const CharacterStats = function(attributes) {
+  GameObject.call(this, attributes);
+  this.healthPoints = attributes.healthPoints;
+  this.name = attributes.name;
+}
+
+CharacterStats.prototype = Object.create(GameObject.prototype);
+
+CharacterStats.prototype.takeDamage = function() {
+  return `${this.name} took damage`
+}
+
 /*
   === Humanoid (Having an appearance or character resembling that of a human.) ===
   * team
@@ -48,6 +60,18 @@ GameObject.proptotype.destroy = function() {
   * should inherit destroy() from GameObject through CharacterStats
   * should inherit takeDamage() from CharacterStats
 */
+
+const Humanoid = function(attributes) {
+  CharacterStats.call(this, attributes);
+  this.team = attributes.team;
+  this.weapons = attributes.weapons;
+  this.language = attributes.language;
+};
+
+Humanoid.prototype = Object.create(CharacterStats.prototype);
+Humanoid.prototype.greet = function() {
+  return `${this.name} offers a greeting in ${this.language}`
+};
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -57,7 +81,7 @@ GameObject.proptotype.destroy = function() {
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
 
-/*
+
   const mage = new Humanoid({
     createdAt: new Date(),
     dimensions: {
@@ -118,7 +142,7 @@ GameObject.proptotype.destroy = function() {
   console.log(archer.greet()); // Lilith offers a greeting in Elvish.
   console.log(mage.takeDamage()); // Bruce took damage.
   console.log(swordsman.destroy()); // Sir Mustachio was removed from the game.
-*/
+
 
   // Stretch task: 
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
