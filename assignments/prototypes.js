@@ -72,6 +72,8 @@ Humanoid.prototype = Object.create(CharacterStats.prototype);
 Humanoid.prototype.greet = function() {
   return `${this.name} offers a greeting in ${this.language}`
 };
+
+console.log(Humanoid);
  
 /*
   * Inheritance chain: GameObject -> CharacterStats -> Humanoid
@@ -148,3 +150,103 @@ Humanoid.prototype.greet = function() {
   // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.  
   // * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
   // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+
+//Hero boi
+const Hero = function(attributes) {
+  Humanoid.call(this, attributes);
+}
+
+Hero.prototype = Object.create(Humanoid.prototype);
+Hero.prototype.attack = function(target) {
+  if(this.healthPoints > 0) {
+    if(target.healthPoints > 0) {
+      let damage = (Math.round(Math.random() * 10));
+      target.healthPoints = target.healthPoints - damage;
+      if (target.healthPoints > 0) {
+        console.log(`${this.name} attacked ${target.name} for ${damage} points! ${target.name} now has ${target.healthPoints} health`)
+      } else {
+        console.log(`${this.name} attacked ${target.name} for ${damage} points and destroyed ${target.name}!`)
+      }
+    } else {
+      console.log(`${this.name} kicked ${target.name}'s dead body`)
+    }
+  } else {
+    console.log(`${this.name}'s body twitched`)
+  }
+}
+
+//Villain boi
+const Villain = function(attributes) {
+  Humanoid.call(this, attributes);
+}
+
+Villain.prototype = Object.create(Humanoid.prototype);
+Villain.prototype.attack = function(target) {
+  if(this.healthPoints > 0) {
+    if(target.healthPoints > 0) {
+      let damage = (Math.round(Math.random() * 10));
+      target.healthPoints = target.healthPoints - damage;
+      if (target.healthPoints > 0) {
+        console.log(`${this.name} attacked ${target.name} for ${damage} points! ${target.name} now has ${target.healthPoints} health`)
+      } else {
+        console.log(`${this.name} attacked ${target.name} for ${damage} points and destroyed ${target.name}!`)
+      }
+    } else {
+      console.log(`${this.name} kicked ${target.name}'s dead body`)
+    }
+  } else {
+    console.log(`${this.name}'s body twitched`)
+  }
+}
+
+
+
+
+
+
+const aragorn = new Hero({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 1,
+    height: 2,
+  },
+  healthPoints: 20,
+  name: 'Aragorn',
+  team: 'Ranger',
+  weapons: [
+    'Andúril',
+  ],
+  language: 'The laguage of man',
+});
+
+const lurtz = new Villain({
+  createdAt: new Date(),
+  dimensions: {
+    length: 1,
+    width: 1,
+    height: 2,
+  },
+  healthPoints: 20,
+  name: 'Lurtz',
+  team: 'Uruk-hai',
+  weapons: [
+    'Bow',
+  ],
+  language: 'black speech',
+});
+
+lurtz.attack(aragorn);
+aragorn.attack(lurtz);
+lurtz.attack(aragorn);
+aragorn.attack(lurtz);
+lurtz.attack(aragorn);
+aragorn.attack(lurtz);
+lurtz.attack(aragorn);
+aragorn.attack(lurtz);
+lurtz.attack(aragorn);
+aragorn.attack(lurtz);
+lurtz.attack(aragorn);
+aragorn.attack(lurtz);
+
